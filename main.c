@@ -15,7 +15,7 @@
 
 int my_strlen(char *);
 char *my_strdup(char *);
-
+void my_putstr(const char *);
 
 struct list{
     void *data;
@@ -228,8 +228,21 @@ void map_free(map_s_t *map)
     free(map);
 }
 
+const char *help =
+"USAGE\n"
+"   ./my_sokoban map\n"
+"DESCRIPTION\n"
+"   map  file representing the warehouse map, containing ‘#’ for walls, "
+"‘P’ for the player, ‘X’ for boxes and ‘O’ for storage locations.\n";
+
 int main(int ac, char **av)
 {
+    if (ac != 2)
+        return (84);
+    if (av[1][0] == '-' && av[1][1] == 'h' && av[1][2] == 0){
+        my_putstr(help);
+    }
+
     map_s_t *map = init_map(av[1]);
     list_t *list_z = linked_list_init();
     if (map == 0)
