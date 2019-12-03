@@ -21,7 +21,6 @@ typedef struct map_s{
     char *map_o;
     int height;
     int width;
-    int *p;
     char *mov; //is pushable
     char *floor;//is an objectif
     int *win_p;
@@ -135,6 +134,14 @@ int did_you_lose(map_s_t *map)
     return (0);
 }
 
+void map_free(map_s_t *map)
+{
+    free(map->map);
+    free(map->map_o);
+    free(map->win_p);
+    free(map);
+}
+
 int main(int ac, char **av)
 {
     map_s_t *map = init_map(av[1]);
@@ -172,12 +179,17 @@ int main(int ac, char **av)
         int nb = 0;
         for (int coor = 0; map->map[coor]; coor++)
             map->map[coor] == 'O' ? nb++ : 0;
-        if (nb == 0)
+        if (nb == 0){
+            map_free(map);
+            endwin();
             return (0);
-        if (did_you_lose(map) == 1)
+        }
+        if (did_you_lose(map) == 1){
+            map_free(map);
+            endwin();
             return (1);
+        }
     }
-    endwin();
 }
 
 /*

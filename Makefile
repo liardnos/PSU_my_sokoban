@@ -11,7 +11,7 @@ SRC		=		main.c
 
 SRCT 	=		./tests/
 
-NAME	=		a.out
+NAME	=		my_sokoban
 
 FLAGS	=		-L./lib/my -lmy -I./include/ -lncurses
 
