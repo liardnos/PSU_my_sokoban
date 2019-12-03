@@ -155,7 +155,7 @@ map_s_t *init_map(char *filename)
     //set to max
     for (int i = 0; map->map[i]; i++, len++){
         if (map->map[i] == '\n' && len < max_len){
-            char *tempo = str_add(map->map, "#", i);
+            char *tempo = str_add(map->map, " ", i);
             free(map->map);
             map->map = tempo;
         } else if (map->map[i] == '\n'){
@@ -184,7 +184,7 @@ void mov_p(map_s_t *map, int ac)
     for (int coor = 0; map->map[coor]; coor++){
         char mo = map->map[coor];
 
-        char md = (mo != '#' && mo != '\n' ? map->map[coor+ac] : '#');
+        char md = (mo != '#' && mo != '\n' && mo != ' ' ? map->map[coor+ac] : '#');
         if (mo == ' ' || mo == '#'){
 
         } else if (mo == 'P' && my_find(map->floor, md)){
