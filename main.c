@@ -205,8 +205,7 @@ int did_you_lose(map_s_t *map)
     int x = 0;
     int o = 0;
     for (int i = 0; map->win_p[i]; i++)
-        if (map->map[map->win_p[i]] == 'O' || map->map[map->win_p[i]] == 'P')
-            o++;
+        o++;
 
     for (int coor = 0; map->map[coor]; coor++)
         map->map[coor] == 'X' ? x++ : 0;
