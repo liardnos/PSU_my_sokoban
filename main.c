@@ -110,6 +110,18 @@ void init_win_p(map_s_t *map)
         map->map[coor] == 'O' ? map->win_p[nb] = coor, nb++ : 0;
 }
 
+char *str_add(char *str1, char *str2, int pos)
+{
+    char *str3 = malloc(my_strlen(str1)+my_strlen(str2)+1);
+    str3[my_strlen(str1)+my_strlen(str2)] = 0;
+    int str1_p = 0;
+    int str2_p = 0;
+    for (;str1_p < pos; str3[str1_p] = str1[str1_p], str1_p++);
+    for (;str2[str2_p]; str3[str1_p+str2_p] = str2[str2_p], str2_p++);
+    for (;str1[str1_p]; str3[str1_p+str2_p] = str1[str1_p], str1_p++);
+    return (str3);
+}
+
 map_s_t *init_map(char *filename)
 {
     map_s_t *map = malloc(sizeof(map_s_t));
@@ -123,12 +135,34 @@ map_s_t *init_map(char *filename)
     if (fd == -1)
         return (0);
     map->map = malloc(file_stat.st_size+1);
+    memset(map->map, 0, file_stat.st_size+1);
     read(fd, map->map, file_stat.st_size);
     map->map[file_stat.st_size] = 0;
     for (int i = 0; map->map[i]; i++)
         if (map->map[i] == '\n')
             map->height++;
-    map->width = file_stat.st_size/map->height;
+
+    //max line len
+    int max_len = 0;
+    int len = 0;
+    for (int i = 0; map->map[i]; i++, len++){
+        map->map[i] == '\n' ? len = 0 : 0;
+        max_len < len ? max_len = len :  0;
+    }
+    max_len++;
+    map->width = max_len;
+
+    //set to max
+    for (int i = 0; map->map[i]; i++, len++){
+        if (map->map[i] == '\n' && len < max_len){
+            char *tempo = str_add(map->map, "#", i);
+            free(map->map);
+            map->map = tempo;
+        } else if (map->map[i] == '\n'){
+            len = 0;
+        }
+    }
+
     init_win_p(map);
     map->map_o = my_strdup(map->map);
     return (map);
@@ -248,14 +282,12 @@ int main(int ac, char **av)
             linked_list_free_d(list_z);
             map_free(map);
             endwin();
-            printf("WIN\n");
             return (0);
         }
-        if (did_you_lose(map) == 2){
+        if (did_you_lose(map) == 1){
             map_free(map);
             linked_list_free_d(list_z);
             endwin();
-            printf("LOSE\n");
             return (1);
         }
     }
