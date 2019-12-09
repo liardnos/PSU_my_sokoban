@@ -86,6 +86,18 @@ int my_find(char *str, char c)
 int push_object(map_s_t *map, int coor, int ac)
 {
     int coor_o = coor;
+    if (my_find(map->mov, map->map[coor+ac])){
+        if (my_find(map->floor, map->map[coor+ac*2])){
+            map->map[coor+ac*2] = map->map[coor+ac];
+            map->map[coor+ac] = 'Q';
+            map->map[coor] = ' ';
+        }
+    }
+}
+/*
+int push_object(map_s_t *map, int coor, int ac)
+{
+    int coor_o = coor;
     for (; my_find(map->mov, map->map[coor]); coor += ac)
         if (map->map[coor] == 'P')
             map->map[coor] = 'Q';
@@ -97,7 +109,7 @@ int push_object(map_s_t *map, int coor, int ac)
     map->map[coor+ac] = 'Q';
     map->map[coor] = ' ';
 }
-
+*/
 void init_win_p(map_s_t *map)
 {
     int nb = 0;
@@ -244,6 +256,12 @@ int main(int ac, char **av)
     }
 
     map_s_t *map = init_map(av[1]);
+
+    int p_nb = 0;
+
+    for (int i = 0; map->map[i]; i++){
+        map->map[i] == 'P' ? p_nb++ : 0;
+    }
     list_t *list_z = linked_list_init();
     if (map == 0)
         return (84);
