@@ -144,7 +144,7 @@ map_s_t *init_map(char *filename)
     map->height = 0;
     stat(filename, &file_stat);
     int fd = open(filename, O_RDONLY);
-    if (fd == -1)
+    if (fd < 0)
         return (0);
     map->map = malloc(file_stat.st_size+1);
     memset(map->map, 0, file_stat.st_size+1);
@@ -174,9 +174,17 @@ map_s_t *init_map(char *filename)
             len = 0;
         }
     }
-
     init_win_p(map);
     map->map_o = my_strdup(map->map);
+
+    int o_nb = 0;
+    int x_nb = 0;
+    for (int i = 0; map->map[i]; i++){
+        map->map[i] == 'O' ? o_nb++ : 0;
+        map->map[i] == 'X' ? x_nb++ : 0;
+    }
+    if (o_nb == 0) return (0);
+    if (o_nb != x_nb) return (0);
     return (map);
 }
 
@@ -256,12 +264,15 @@ int main(int ac, char **av)
     }
 
     map_s_t *map = init_map(av[1]);
+    if (map == 0)
+        return (84);
 
     int p_nb = 0;
 
     for (int i = 0; map->map[i]; i++){
         map->map[i] == 'P' ? p_nb++ : 0;
     }
+    if (p_nb != 1) return (84);
     list_t *list_z = linked_list_init();
     if (map == 0)
         return (84);
@@ -293,7 +304,7 @@ int main(int ac, char **av)
             case 32: //down
                 map->map = my_strdup(map->map_o);
                 break;
-            case 122: //down
+            case 122: //space
                 if (list_z->data > (void *)0){
                     free(map->map);
                     map->map = linked_list_pop(list_z, 0);
