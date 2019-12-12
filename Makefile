@@ -7,7 +7,9 @@
 
 #http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/helloworld.html
 
-SRC		=		main.c
+SRC		=		main.c \
+				mainn.c \
+				mainnn.c
 
 SRCT 	=		./tests/
 
@@ -59,9 +61,10 @@ tests_run:
 
 vaslgrind: fclean
 	clear
+	rm -f vgcore.*
 	make -C ./lib/my valgrind
 	gcc -g -o $(NAME) $(SRC) $(FLAGS)
-	valgrind -s --leak-check=full --track-origins=yes ./$(NAME) map #&> valgrind_log
+	valgrind -s --leak-check=full --track-origins=yes ./$(NAME) map
 
 #-s --leak-check=full
 
