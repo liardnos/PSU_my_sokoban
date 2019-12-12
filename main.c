@@ -238,7 +238,7 @@ int did_you_lose(map_s_t *map)
             if ((my_find(fl, m[coor+1]) || my_find(fl, m[coor-1])) && (my_find(fl, m[coor-map->width]) || my_find(fl, m[coor+map->width])))
                 x--;
     }
-    if ( x < o)
+    if ( x == 0)
         return (1);
     return (0);
 }
@@ -326,6 +326,7 @@ int main(int ac, char **av)
             linked_list_free_d(list_z);
             map_free(map);
             endwin();
+
             return (0);
         }
         if (did_you_lose(map) == 1){
