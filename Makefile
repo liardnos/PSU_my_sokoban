@@ -9,7 +9,8 @@
 
 SRC		=		main.c \
 				mainn.c \
-				mainnn.c
+				mainnn.c \
+				mainnnn.c
 
 SRCT 	=		./tests/
 
@@ -69,5 +70,3 @@ vaslgrind: fclean
 #-s --leak-check=full
 
 #563434*232323%(233424+23423423-23482347)
-
-COPY_REPO:
