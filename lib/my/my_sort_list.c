@@ -13,9 +13,7 @@ int my_list_size(struct linked_list *);
 
 int my_sort_list(struct linked_list **begin, int (*cmp)())
 {
-    if (*begin = NULL)
-        return (0);
-
+    if (*begin = NULL) return (0);
     int len = my_list_size(*begin);
     struct linked_list *last;
     int mv = 1;

@@ -10,7 +10,7 @@ void my_putchar(char c);
 void my_put_nbr(long int nb)
 {
     long int count = 1000000000000;
-    int neg = nb < 0 ? nb *=-1, my_putchar('-'), 1 : 0;
+    int neg = nb < 0 ? nb *= -1, my_putchar('-'), 1 : 0;
     if (nb < 0){
         my_putchar(45);
         nb = -nb;

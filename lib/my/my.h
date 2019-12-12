@@ -69,6 +69,23 @@ void my_sort_list(struct linked_list **begin, int (*cmp)());
 
 #endif
 
+struct list{
+    void *data;
+    struct list *next;
+};
+typedef struct list list_t;
+
+typedef struct map_s{
+    char *map;
+    char *map_o;
+    int height;
+    int width;
+    char *mov;
+    char *floor;
+    int *win_p;
+} map_s_t;
+
+
 typedef struct linked_list
 {
     void *data;
