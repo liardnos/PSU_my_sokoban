@@ -191,12 +191,14 @@ map_s_t *init_map(char *filename)
 void print_map(map_s_t *map)
 {
     char c;
+    mvprintw(0, 0, map->map);
+    /*
     for (int i = 0; i < map->height; i++){
         for (int ii = 0; ii < map->width; ii++){
             c = map->map[ii+i*map->width];
             mvprintw(i, ii, &c);
         }
-    }
+    }*/
 }
 
 void mov_p(map_s_t *map, int ac)
