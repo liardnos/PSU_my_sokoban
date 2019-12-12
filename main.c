@@ -182,6 +182,7 @@ map_s_t *init_map(char *filename)
     for (int i = 0; map->map[i]; i++){
         map->map[i] == 'O' ? o_nb++ : 0;
         map->map[i] == 'X' ? x_nb++ : 0;
+        if (!my_find("XO #P\n", map->map[i])) return (0);
     }
     if (o_nb == 0) return (0);
     if (o_nb != x_nb) return (0);
