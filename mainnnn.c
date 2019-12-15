@@ -34,11 +34,10 @@ int main_loop(map_s_t *map, list_t *list_z)
     }
 }
 
-map_s_t *init_map(char *filename)
+map_s_t *init_map_r(char *filename)
 {
     map_s_t *map = malloc(sizeof(map_s_t));
     struct stat file_stat;
-
     map->mov = "PX";
     map->floor = " O";
     map->height = 0;
@@ -51,8 +50,12 @@ map_s_t *init_map(char *filename)
     read(fd, map->map, file_stat.st_size);
     map->map[file_stat.st_size] = 0;
     for (int i = 0; map->map[i]; i++)
-        if (map->map[i] == '\n')
-            map->height++;
+        if (map->map[i] == '\n') map->height++;
+    return (map);
+}
+
+void init_map_rr(map_s_t *map)
+{
     int max_len = 0;
     int len = 0;
     for (int i = 0; map->map[i]; i++, len++){
@@ -72,6 +75,13 @@ map_s_t *init_map(char *filename)
     }
     init_win_p(map);
     map->map_o = my_strdup(map->map);
+}
+
+map_s_t *init_map(char *filename)
+{
+    map_s_t *map = init_map_r(filename);
+    if (map == 0) return (0);
+    init_map_rr(map);
     int o_nb = 0;
     int x_nb = 0;
     for (int i = 0; map->map[i]; i++){
