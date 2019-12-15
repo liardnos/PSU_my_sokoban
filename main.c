@@ -35,10 +35,9 @@ void mov_p(map_s_t *map, int ac)
 
         } else if (mo == 'P' && my_find(map->floor, md)){
             map->map[coor] = ' ';
-            map->map[coor+ac] = 'Q';
-        } else if (mo == 'P' && my_find(map->mov, md)){
-            push_object(map, coor, ac);
+            map->map[coor+ac] = 'Q';            
         }
+        mo == 'P' && my_find(map->mov, md) ? push_object(map, coor, ac) : 0;
     }
     for (int coor = 0; coor < map->height*map->width; coor++)
         map->map[coor] == 'Q' ? map->map[coor] = 'P' : 0;
