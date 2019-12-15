@@ -29,13 +29,11 @@ void mov_p(map_s_t *map, int ac)
 {
     for (int coor = 0; map->map[coor]; coor++){
         char mo = map->map[coor];
-
         char md = (mo != 35 && mo != '\n' && mo != 32 ? map->map[coor+ac] : 35);
         if (mo == ' ' || mo == '#'){
-
         } else if (mo == 'P' && my_find(map->floor, md)){
             map->map[coor] = ' ';
-            map->map[coor+ac] = 'Q';            
+            map->map[coor+ac] = 'Q';
         }
         mo == 'P' && my_find(map->mov, md) ? push_object(map, coor, ac) : 0;
     }
