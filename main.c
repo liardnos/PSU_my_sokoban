@@ -20,10 +20,10 @@ void my_putstr(const char *);
 
 const char *help =
 "USAGE\n"
-"   ./my_sokoban map\n"
+"   ./_sokoban map\n"
 "DESCRIPTION\n"
-"   map  file representing the warehouse map, containing ‘#’ for walls, "
-"‘P’ for the player, ‘X’ for boxes and ‘O’ for storage locations.\n";
+"   map  file representing the warehouse map, containing '#' for walls, "
+"'P' for the player, 'X' for boxes and 'O' for storage locations.\n";
 
 void mov_p(map_s_t *map, int ac)
 {
